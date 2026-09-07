@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import Content from '@/content/Content.tsx'
-import { parseContent } from '@/content/content-parser.ts'
+import { parseContent, transformContentMarkup } from '@/content/content-parser.ts'
 import './style/index.css'
-import { CONTENT_TAG_NAME } from '@/content/content-runtime.tsx'
 import App from '@/App.tsx'
 import '@/shared/i18n.ts'
 import { applyTheme, readTheme } from '@/theme'
@@ -18,8 +17,8 @@ const PREVIEW_TEXT = `
 `
 
 function createPreviewContentHost(text: string): HTMLElement {
-    const host = document.createElement(CONTENT_TAG_NAME)
-    host.innerHTML = text
+    const host = document.createElement('div')
+    host.innerHTML = transformContentMarkup(text)
     return host
 }
 
