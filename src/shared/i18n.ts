@@ -10,7 +10,6 @@ i18n.use(Backend)
         fallbackLng: 'zh-CN',
         supportedLngs: ['zh-CN'],
         ns: ['workshop'],
-        defaultNS: 'workshop',
         interpolation: {
             escapeValue: false,
         },
