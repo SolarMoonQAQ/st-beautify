@@ -1,0 +1,28 @@
+@import 'tailwindcss/theme.css';
+@import 'tailwindcss/utilities.css';
+@import './themes.css';
+@import './content.css';
+@import './settings.css';
+
+@font-face {
+    font-family: 'Zhi Mang Xing';
+    src: url('../../public/fonts/ZhiMangXing-Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ZCOOL QingKe HuangYou';
+    src: url('../../public/fonts/ZCOOLQingKeHuangYou-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Ma Shan Zheng';
+    src: url('../../public/fonts/MaShanZheng-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}

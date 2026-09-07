@@ -1,0 +1,17 @@
+{
+  "type": "script",
+  "enabled": true,
+  "name": "正文美化插件",
+  "id": "42e73131-db92-4b2f-9d13-f53aca497a27",
+  "content": "import 'https://testingcf.jsdelivr.net/gh/SolarMoonQAQ/st-beautify@latest/dist/index.js'",
+  "info": "正文美化",
+  "button": {
+    "enabled": false,
+    "buttons": []
+  },
+  "data": {},
+  "export_with": {
+    "data": true,
+    "button": true
+  }
+}

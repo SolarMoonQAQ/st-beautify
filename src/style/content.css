@@ -1,0 +1,85 @@
+.ct-bg {
+    padding: 1.5rem;
+    border: 1px solid var(--ct-border);
+    border-radius: 0.5rem;
+    background-color: var(--ct-paper);
+    background-image: var(--ct-texture);
+    background-blend-mode: var(--ct-texture-blend);
+    box-shadow: var(--ct-shadow);
+    color: var(--ct-ink);
+    overflow-wrap: anywhere;
+}
+.ct-bg .ct-dialogue {
+    padding-block: 0.5rem;
+}
+.ct-bg .ct-dialogue-content {
+    color: var(--ct-ink);
+    font-size: var(--st-font-size);
+    line-height: 1.625;
+    white-space: pre-wrap;
+}
+.ct-bg .ct-dialogue-name,
+.ct-bg .ct-dialogue-name-head {
+    font-family: var(--ct-name-font);
+    color: var(--ct-ink);
+    text-shadow: 0 2px 4px #0002;
+}
+.ct-bg .ct-dialogue-name {
+    font-size: calc(var(--st-font-size) * 1.5);
+    letter-spacing: 0.025em;
+}
+.ct-bg .ct-dialogue-name-head {
+    font-size: calc(var(--st-font-size) * 2);
+}
+.ct-bg .ct-dialogue-line {
+    background: var(--ct-border);
+}
+.ct-bg .ct-dialogue-avatar,
+.ct-bg .ct-dialogue-avatar *,
+.ct-bg .ct-dialogue-avatar::after {
+    border-radius: var(--radius-lg, 0.5rem) !important;
+}
+.ct-bg .ct-dialogue-avatar {
+    background: var(--ct-tint);
+    border: 1px solid var(--ct-border);
+}
+.ct-bg .ct-narration {
+    padding-block: 0.5rem;
+    font-size: calc(var(--st-font-size) * 1.15);
+    color: var(--ct-ink);
+    line-height: 1.625;
+}
+.ct-bg .ct-thought {
+    margin-block: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-left: 2px solid var(--ct-accent);
+    border-radius: 0 0.4rem 0.4rem 0;
+    background: var(--ct-tint);
+    color: var(--ct-muted);
+}
+.ct-bg .ct-thought-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 0.35rem;
+    color: var(--ct-accent);
+    font-size: 0.85em;
+}
+.ct-bg .ct-thought-label {
+    font-size: 0.8em;
+    letter-spacing: 0.15em;
+    opacity: 0.75;
+}
+.ct-bg .ct-thought-content {
+    font-size: var(--st-font-size);
+    line-height: 1.75;
+    white-space: pre-wrap;
+}
+[data-ct-theme='tech'] .ct-bg .ct-seal,
+[data-ct-theme='urban'] .ct-bg .ct-seal {
+    background: var(--ct-tint) !important;
+    color: var(--ct-accent);
+    border-color: var(--ct-accent);
+    rotate: 0deg !important;
+    box-shadow: none;
+}

@@ -1,0 +1,38 @@
+.ct-bg,
+.ct-settings-dialog,
+.ct-settings {
+    --ct-ink: #1f1b18;
+    --ct-muted: #75655a;
+    --ct-paper: #fbeee2;
+    --ct-border: #cdb8a1;
+    --ct-accent: #9e2a2b;
+    --ct-tint: #9e2a2b0a;
+    --ct-name-font: 'Zhi Mang Xing', 'KaiTi', serif;
+    --ct-texture-blend: normal;
+    --ct-texture: url('../assets/textures/handmade-paper.png');
+    --ct-shadow: 0 4px 18px #39231212;
+    --st-font-size: var(--mainFontSize, 15px);
+    --ct-dialogue-header-height: calc(var(--st-font-size) * 2.5);
+}
+[data-ct-theme='tech'] :is(.ct-bg, .ct-settings-dialog, .ct-settings) {
+    --ct-ink: #d9edf6;
+    --ct-muted: #92abbc;
+    --ct-paper: #101e2c;
+    --ct-border: #325367;
+    --ct-accent: #70dbed;
+    --ct-tint: #70dbed0c;
+    --ct-name-font: 'ZCOOL QingKe HuangYou', 'Microsoft YaHei', sans-serif;
+    --ct-texture-blend: multiply;
+    --ct-shadow: 0 4px 22px #0003;
+}
+[data-ct-theme='urban'] :is(.ct-bg, .ct-settings-dialog, .ct-settings) {
+    --ct-ink: #eee8f7;
+    --ct-muted: #b1a4c2;
+    --ct-paper: #201b2b;
+    --ct-border: #52415f;
+    --ct-accent: #c3a1ff;
+    --ct-tint: #c3a1ff0d;
+    --ct-name-font: 'Ma Shan Zheng', 'KaiTi', serif;
+    --ct-texture-blend: multiply;
+    --ct-shadow: 0 4px 22px #0003;
+}
