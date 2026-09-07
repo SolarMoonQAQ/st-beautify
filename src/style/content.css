@@ -75,11 +75,237 @@
     line-height: 1.75;
     white-space: pre-wrap;
 }
-[data-ct-theme='tech'] .ct-bg .ct-seal,
-[data-ct-theme='urban'] .ct-bg .ct-seal {
-    background: var(--ct-tint) !important;
-    color: var(--ct-accent);
-    border-color: var(--ct-accent);
+[data-ct-theme='tech'] .ct-bg .ct-seal {
+    position: relative;
+    display: inline-block !important;
+    width: 2.65rem !important;
+    height: 0.9rem !important;
+    min-width: 2.65rem;
+    margin-right: 0.55rem !important;
+    padding: 0 !important;
+    overflow: hidden;
+    border: 1px solid rgb(var(--ct-accent-rgb) / 48%) !important;
+    border-radius: 2px !important;
+    background:
+        repeating-linear-gradient(0deg, rgb(var(--ct-accent-rgb) / 5%) 0 1px, transparent 1px 3px),
+        linear-gradient(135deg, rgb(255 255 255 / 8%), rgb(var(--ct-accent-rgb) / 8%)) !important;
+    color: transparent !important;
+    clip-path: none;
     rotate: 0deg !important;
-    box-shadow: none;
+    box-shadow:
+        inset 0 0 9px rgb(var(--ct-accent-rgb) / 18%),
+        0 0 7px rgb(var(--ct-accent-rgb) / 22%) !important;
+    vertical-align: -0.08rem;
+}
+[data-ct-theme='tech'] .ct-bg .ct-seal::before {
+    content: '';
+    position: absolute;
+    inset: auto;
+    top: -55%;
+    left: -75%;
+    width: 0.55rem;
+    height: 210%;
+    border: 0;
+    border-radius: 40%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgb(var(--ct-accent-rgb) / 42%),
+        color-mix(in srgb, white 68%, var(--ct-accent)),
+        rgb(var(--ct-accent-rgb) / 42%),
+        transparent
+    );
+    box-shadow:
+        0 0 5px white,
+        0 0 12px var(--ct-accent);
+    filter: blur(0.25px);
+    transform: skewX(-24deg);
+    animation: ct-screen-reflection 2.8s ease-in-out infinite;
+}
+[data-ct-theme='tech'] .ct-bg .ct-seal::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border: 1px solid rgb(255 255 255 / 10%);
+    border-radius: 1px;
+    background: linear-gradient(90deg, transparent, rgb(var(--ct-accent-rgb) / 8%), transparent);
+}
+@keyframes ct-screen-reflection {
+    0%,
+    15% {
+        left: -75%;
+        opacity: 0;
+    }
+    25% {
+        opacity: 1;
+    }
+    70% {
+        left: 125%;
+        opacity: 0.9;
+    }
+    80%,
+    100% {
+        left: 125%;
+        opacity: 0;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    [data-ct-theme='tech'] .ct-bg .ct-seal::before {
+        left: 42%;
+        opacity: 0.72;
+        animation: none;
+    }
+}
+
+[data-ct-theme='tech'] .ct-bg {
+    position: relative;
+    isolation: isolate;
+    border-color: rgb(var(--ct-accent-rgb) / 52%);
+    background-color: rgb(4 13 24 / 28%);
+    background-image:
+        linear-gradient(
+            118deg,
+            rgb(255 255 255 / 13%) 0%,
+            rgb(255 255 255 / 4%) 17%,
+            transparent 17.5% 43%,
+            rgb(255 255 255 / 7%) 43.5% 46%,
+            transparent 46.5% 72%,
+            rgb(255 255 255 / 4%) 72.5% 74%,
+            transparent 74.5%
+        ),
+        repeating-linear-gradient(
+            118deg,
+            transparent 0 34px,
+            rgb(255 255 255 / 2.5%) 35px 36px,
+            transparent 37px 68px
+        ),
+        radial-gradient(circle at 82% 12%, rgb(var(--ct-accent-rgb) / 12%), transparent 42%),
+        linear-gradient(145deg, rgb(12 34 51 / 42%), rgb(3 10 20 / 22%));
+    background-blend-mode: screen, screen, screen, normal;
+    backdrop-filter: blur(18px) saturate(165%);
+    -webkit-backdrop-filter: blur(18px) saturate(165%);
+}
+[data-ct-theme='tech'] .ct-bg::before {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    inset: 7px;
+    border-radius: 0.3rem;
+    background:
+        linear-gradient(var(--ct-accent), var(--ct-accent)) left top / 3.5rem 1px no-repeat,
+        linear-gradient(var(--ct-accent), var(--ct-accent)) left top / 1px 2.25rem no-repeat,
+        linear-gradient(var(--ct-accent), var(--ct-accent)) right bottom / 3.5rem 1px no-repeat,
+        linear-gradient(var(--ct-accent), var(--ct-accent)) right bottom / 1px 2.25rem no-repeat;
+    filter: drop-shadow(0 0 5px var(--ct-accent));
+    opacity: 0.82;
+    pointer-events: none;
+}
+[data-ct-theme='tech'] .ct-bg .ct-dialogue-name,
+[data-ct-theme='tech'] .ct-bg .ct-dialogue-name-head {
+    color: var(--ct-accent);
+    text-shadow: 0 0 10px rgb(var(--ct-accent-rgb) / 58%);
+}
+[data-ct-theme='tech'] .ct-bg .ct-narration,
+[data-ct-theme='tech'] .ct-bg .ct-dialogue-content {
+    text-shadow:
+        0 2px 3px rgb(0 0 0 / 82%),
+        0 0 8px rgb(var(--ct-accent-rgb) / 16%);
+}
+[data-ct-theme='tech'] .ct-bg .ct-dialogue-line {
+    background: linear-gradient(var(--ct-accent), transparent);
+    box-shadow: 0 0 7px rgb(var(--ct-accent-rgb) / 65%);
+}
+[data-ct-theme='tech'] .ct-bg .ct-dialogue-avatar {
+    background: linear-gradient(145deg, rgb(var(--ct-accent-rgb) / 15%), rgb(2 10 18 / 72%));
+    border-color: rgb(var(--ct-accent-rgb) / 55%);
+    box-shadow:
+        inset 0 0 18px rgb(var(--ct-accent-rgb) / 12%),
+        0 0 10px rgb(var(--ct-accent-rgb) / 18%);
+}
+[data-ct-theme='tech'] .ct-bg .ct-thought {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgb(var(--ct-accent-rgb) / 58%);
+    border-left-width: 3px;
+    border-radius: 3px;
+    background-color: rgb(2 14 20 / 86%);
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            rgb(var(--ct-accent-rgb) / 3%) 0,
+            rgb(var(--ct-accent-rgb) / 3%) 1px,
+            transparent 1px,
+            transparent 4px
+        ),
+        linear-gradient(120deg, rgb(var(--ct-accent-rgb) / 13%), transparent 62%);
+    box-shadow:
+        inset 0 0 24px rgb(var(--ct-accent-rgb) / 11%),
+        0 0 12px rgb(var(--ct-accent-rgb) / 18%);
+}
+[data-ct-theme='tech'] .ct-bg .ct-thought::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 2.5rem;
+    height: 2px;
+    background: var(--ct-accent);
+    box-shadow: 0 0 8px var(--ct-accent);
+}
+[data-ct-theme='tech'] .ct-bg .ct-thought-heading {
+    border-bottom: 1px solid rgb(var(--ct-accent-rgb) / 22%);
+    padding-bottom: 0.35rem;
+    font-family: var(--ct-name-font);
+    text-shadow: 0 0 8px rgb(var(--ct-accent-rgb) / 45%);
+}
+[data-ct-theme='tech'] .ct-bg .ct-thought-label {
+    display: none;
+}
+[data-ct-theme='tech'] .ct-bg .ct-thought-heading::after {
+    content: '心声';
+    margin-left: auto;
+    font-size: 0.65em;
+    letter-spacing: 0.14em;
+    opacity: 0.72;
+}
+[data-ct-theme='tech'] .ct-bg .ct-thought-content {
+    color: color-mix(in srgb, var(--ct-ink) 88%, var(--ct-accent));
+    text-shadow: 0 0 5px rgb(var(--ct-accent-rgb) / 18%);
+}
+
+[data-ct-theme='tech'][data-ct-tech-color='black'] .ct-bg {
+    border-color: rgb(205 214 226 / 45%);
+    background-color: rgb(2 4 7 / 74%);
+    background-image:
+        linear-gradient(
+            118deg,
+            rgb(255 255 255 / 10%) 0%,
+            rgb(255 255 255 / 3%) 17%,
+            transparent 17.5% 43%,
+            rgb(255 255 255 / 6%) 43.5% 46%,
+            transparent 46.5% 72%,
+            rgb(255 255 255 / 3%) 72.5% 74%,
+            transparent 74.5%
+        ),
+        repeating-linear-gradient(
+            118deg,
+            transparent 0 34px,
+            rgb(255 255 255 / 1.8%) 35px 36px,
+            transparent 37px 68px
+        ),
+        linear-gradient(145deg, rgb(29 34 42 / 42%), rgb(0 0 0 / 24%));
+}
+[data-ct-theme='tech'][data-ct-tech-color='black'] .ct-bg .ct-narration,
+[data-ct-theme='tech'][data-ct-tech-color='black'] .ct-bg .ct-dialogue-content,
+[data-ct-theme='tech'][data-ct-tech-color='black'] .ct-bg .ct-thought-content {
+    color: #f4f7fb;
+    text-shadow:
+        0 2px 4px rgb(0 0 0 / 95%),
+        0 0 6px rgb(255 255 255 / 14%);
+}
+[data-ct-theme='tech'][data-ct-tech-color='black'] .ct-bg .ct-dialogue-name,
+[data-ct-theme='tech'][data-ct-tech-color='black'] .ct-bg .ct-dialogue-name-head,
+[data-ct-theme='tech'][data-ct-tech-color='black'] .ct-bg .ct-thought-heading {
+    color: #dce3ec;
+    text-shadow: 0 0 9px rgb(230 237 247 / 34%);
 }

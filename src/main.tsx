@@ -110,6 +110,7 @@ $(window).on('pagehide', () => {
     menuButton?.remove()
     menuButton = null
     delete window.parent.document.documentElement.dataset.ctTheme
+    delete window.parent.document.documentElement.dataset.ctTechColor
 
     appContainer?.remove()
     appContainer = null

@@ -106,10 +106,7 @@
     border: 1px solid #0002;
 }
 .ct-settings [data-theme='tech'] .ct-theme-swatch {
-    background: linear-gradient(135deg, #101e2c 65%, #70dbed 65%);
-}
-.ct-settings [data-theme='urban'] .ct-theme-swatch {
-    background: linear-gradient(135deg, #201b2b 65%, #c3a1ff 65%);
+    background: linear-gradient(135deg, #071725 65%, var(--ct-accent) 65%);
 }
 .ct-settings .ct-theme-check {
     margin-left: auto;
@@ -119,6 +116,46 @@
     margin-top: 16px;
     text-align: center;
     font-size: 11px;
+}
+.ct-settings .ct-color-reveal {
+    overflow: hidden;
+}
+.ct-settings .ct-color-settings {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-top: 12px;
+    padding: 12px;
+    border: 1px solid var(--ct-border);
+    border-radius: 10px;
+    background: var(--ct-tint);
+}
+.ct-settings .ct-color-title {
+    flex-shrink: 0;
+    color: var(--ct-muted);
+    font-size: 12px;
+}
+.ct-settings .ct-color-options {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 8px;
+    width: 100%;
+}
+.ct-settings .ct-color-option {
+    width: 22px;
+    height: 22px;
+    justify-self: center;
+    margin: 0;
+    padding: 0;
+    border: 1px solid rgb(255 255 255 / 32%);
+    border-radius: 50%;
+    background: var(--ct-swatch-color) !important;
+    box-shadow: 0 0 10px color-mix(in srgb, var(--ct-swatch-color) 55%, transparent);
+}
+.ct-settings .ct-color-option[aria-pressed='true'] {
+    outline: 2px solid color-mix(in srgb, var(--ct-swatch-color) 65%, white);
+    outline-offset: 3px;
 }
 #extensionsMenu .ct-menu-button {
     display: flex;
