@@ -1,4 +1,5 @@
 import { parseContent } from '@/content/content-parser.ts'
+import type { ContentNode } from '@/content/content-model.ts'
 import Content from '@/content/Content.tsx'
 import { createRoot } from 'react-dom/client'
 
@@ -10,7 +11,46 @@ type RenderState = {
 export const CONTENT_TAG_NAME = 'content'
 
 const MESSAGE_SELECTOR = '.mes_text'
+const DEBUG_PREFIX = '[st-content-beautify]'
 const renderStates = new Map<HTMLElement, RenderState>()
+
+function getMessageId(messageElement: HTMLElement) {
+    return messageElement.closest('.mes')?.getAttribute('mesid') ?? 'unknown'
+}
+
+function logDebug(messageElement: HTMLElement, stage: string, value: unknown) {
+    console.log(`${DEBUG_PREFIX} ${stage} (mes ${getMessageId(messageElement)})`, value)
+}
+
+function describeDomNode(node: Node) {
+    if (node.nodeType === Node.ELEMENT_NODE) {
+        const element = node as HTMLElement
+        return {
+            nodeName: element.nodeName,
+            localName: element.localName,
+            attributes: Object.fromEntries(
+                Array.from(element.attributes, (attribute) => [attribute.name, attribute.value]),
+            ),
+            html: element.outerHTML,
+        }
+    }
+
+    return {
+        nodeType: node.nodeType,
+        text: node.textContent,
+    }
+}
+
+function describeContentNode(node: ContentNode) {
+    if (node.kind === 'native-dom') {
+        return {
+            kind: node.kind,
+            dom: describeDomNode(node.data.node),
+        }
+    }
+
+    return node
+}
 
 function hideLeadingContentBreaks(contentHost: HTMLElement) {
     const contentMarker = contentHost.querySelector(CONTENT_TAG_NAME)
@@ -52,13 +92,26 @@ function getRawContent(messageElement: HTMLElement) {
     if (!Number.isInteger(messageId)) return null
 
     const raw = getChatMessages(messageId)[0]?.message ?? ''
+    logDebug(messageElement, 'raw chat message', raw)
+
     const content = /<content\b[^>]*>([\s\S]*?)<\/content\s*>/i.exec(raw)?.[1]
+    logDebug(messageElement, 'extracted <content>', content ?? null)
+
     return content === undefined ? null : { messageId, content }
 }
 
-function getFormattedNodes(text: string, messageId: number, ownerDocument: Document) {
+function getFormattedNodes(
+    text: string,
+    messageId: number,
+    ownerDocument: Document,
+    messageElement: HTMLElement,
+) {
+    const formattedHtml = formatAsDisplayedMessage(text, { message_id: messageId })
+    logDebug(messageElement, 'formatted <content> HTML', formattedHtml)
+
     const holder = ownerDocument.createElement('div')
-    holder.innerHTML = formatAsDisplayedMessage(text, { message_id: messageId })
+    holder.innerHTML = formattedHtml
+
     return Array.from(holder.childNodes).filter(isMeaningfulNode)
 }
 
@@ -82,13 +135,23 @@ function nodesMatch(expected: Node, actual: Node) {
 function resolveContentRange(messageElement: HTMLElement): ChildNode[] {
     const rawContent = getRawContent(messageElement)
     const marker = messageElement.querySelector(CONTENT_TAG_NAME)
-    if (!rawContent || !marker) return []
+    logDebug(messageElement, 'live .mes_text before range matching', messageElement.innerHTML)
+
+    if (!rawContent || !marker) {
+        logDebug(messageElement, 'range matching failed', {
+            hasRawContent: Boolean(rawContent),
+            hasContentMarker: Boolean(marker),
+        })
+        return []
+    }
 
     const expected = getFormattedNodes(
         rawContent.content,
         rawContent.messageId,
         messageElement.ownerDocument,
+        messageElement,
     )
+    logDebug(messageElement, 'formatted top-level nodes', expected.map(describeDomNode))
     if (!expected.length) return []
 
     // 标记来自当前消息，因此可以沿父节点找到消息的直接子节点。
@@ -107,11 +170,23 @@ function resolveContentRange(messageElement: HTMLElement): ChildNode[] {
             cursor++
 
         // 正文尚未完整显示或匹配失败时，保留酒馆原来的显示。
-        if (cursor === live.length || (index === 0 && cursor !== startIndex)) return []
+        if (cursor === live.length || (index === 0 && cursor !== startIndex)) {
+            logDebug(messageElement, 'range matching stopped', {
+                index,
+                expectedNode: describeDomNode(node),
+                cursor,
+                startIndex,
+                liveNodes: live.map(describeDomNode),
+            })
+            return []
+        }
         cursor++
     }
 
-    return live.slice(startIndex, cursor)
+    const selected = live.slice(startIndex, cursor)
+    logDebug(messageElement, 'selected live top-level nodes', selected.map(describeDomNode))
+
+    return selected
 }
 
 function renderMessage(messageElement: HTMLElement) {
@@ -135,9 +210,14 @@ function renderMessage(messageElement: HTMLElement) {
     messageElement.insertBefore(mount, originalNodes[0])
     originalNodes.forEach((node) => contentHost.appendChild(node))
 
+    logDebug(messageElement, 'content host before parsing', contentHost.innerHTML)
+
     const restoreLeadingBreaks = hideLeadingContentBreaks(contentHost)
     const root = createRoot(mount)
-    root.render(<Content nodes={parseContent(contentHost)} contentHost={contentHost} />)
+    const parsedNodes = parseContent(contentHost)
+
+    logDebug(messageElement, 'parsed content nodes', parsedNodes.map(describeContentNode))
+    root.render(<Content nodes={parsedNodes} contentHost={contentHost} />)
 
     const stop = () => {
         root.unmount()
